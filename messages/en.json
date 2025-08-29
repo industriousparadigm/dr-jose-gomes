@@ -1,0 +1,82 @@
+{
+  "hero": {
+    "headline": "After 50 years healing others, Dr. José needs our help",
+    "subheadline": "74-year-old urologist needs specialized treatment after stroke",
+    "raised": "raised",
+    "of": "of",
+    "goal": "goal",
+    "supporters": "supporters",
+    "donateNow": "Contribute Now",
+    "shareStory": "Share José's Story"
+  },
+  "story": {
+    "title": "José's Story",
+    "content": "Dr. José Gomes de Oliveira dedicated his life to medicine. With advanced training in Germany and the USA, he brought world-class urological care to Brazil. Father of 5, grandfather, beloved physician to thousands.\n\nIn recent weeks, Dr. José suffered a stroke requiring specialized treatment and intensive care. His family is united to provide the best possible care.\n\nEvery contribution, large or small, makes a difference in his recovery journey.",
+    "credentials": "Medical Credentials",
+    "credentialsList": [
+      "Post-Doctoral: Karmanos Cancer Institute (USA)",
+      "Doctorate: University of Würzburg (Germany)",
+      "Specialization: Adventist Silvestre Hospital (Rio de Janeiro)",
+      "CREMESP 52639 | CRM-MT 7318"
+    ]
+  },
+  "donation": {
+    "title": "Support Dr. José's Recovery",
+    "selectAmount": "Select Amount",
+    "customAmount": "Other Amount",
+    "currency": "Currency",
+    "oneTime": "One-time",
+    "monthly": "Monthly",
+    "anonymous": "Donate Anonymously",
+    "yourName": "Your Name (Optional)",
+    "yourEmail": "Your Email (Optional)",
+    "message": "Leave a Message (Optional)",
+    "makePublic": "Make message public",
+    "processing": "Processing...",
+    "selectPayment": "Select Payment Method",
+    "card": "Credit/Debit Card",
+    "paypal": "PayPal",
+    "pix": "PIX (Brazil)",
+    "mbway": "MB Way (Portugal)",
+    "bankTransfer": "Bank Transfer"
+  },
+  "payment": {
+    "secure": "Secure payment processed by",
+    "disclaimer": "Donations are personal gifts to support medical treatment and are not tax-deductible charitable contributions.",
+    "privacy": "We collect minimal data necessary for donation processing. Your information is never sold or shared.",
+    "zeroFees": "Zero fees - 100% goes to treatment"
+  },
+  "updates": {
+    "title": "Latest Updates",
+    "postedBy": "Posted by",
+    "readMore": "Read More",
+    "noUpdates": "Updates from the family will appear here"
+  },
+  "footer": {
+    "organized": "Organized by José's Family",
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "disclaimer": "Personal Fundraising Campaign"
+  },
+  "share": {
+    "title": "Share José's Story",
+    "facebook": "Share on Facebook",
+    "twitter": "Share on Twitter",
+    "whatsapp": "Share on WhatsApp",
+    "copyLink": "Copy Link",
+    "linkCopied": "Link Copied!"
+  },
+  "thank": {
+    "title": "Thank You!",
+    "message": "Your generosity means the world to José and his family.",
+    "receipt": "A receipt will be sent to your email if provided.",
+    "sharePrompt": "Help spread José's story",
+    "returnHome": "Return to Homepage"
+  },
+  "error": {
+    "general": "Something went wrong. Please try again.",
+    "payment": "Payment could not be processed. Please try a different method.",
+    "network": "Connection error. Please check your internet and try again.",
+    "minAmount": "Minimum donation is $1"
+  }
+}

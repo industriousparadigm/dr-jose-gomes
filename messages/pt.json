@@ -1,0 +1,82 @@
+{
+  "hero": {
+    "headline": "Após 50 anos cuidando de outros, Dr. José precisa de nós",
+    "subheadline": "Médico urologista de 74 anos precisa de tratamento especializado após AVC",
+    "raised": "arrecadados",
+    "of": "de",
+    "goal": "meta",
+    "supporters": "apoiadores",
+    "donateNow": "Contribuir Agora",
+    "shareStory": "Compartilhar História"
+  },
+  "story": {
+    "title": "A História de José",
+    "content": "Dr. José Gomes de Oliveira dedicou sua vida à medicina. Com formação avançada na Alemanha e Estados Unidos, trouxe cuidados urológicos de classe mundial ao Brasil. Pai de 5 filhos, avô, médico querido por milhares de pacientes.\n\nNas últimas semanas, Dr. José sofreu um AVC que requer tratamento especializado e cuidados intensivos. Sua família está unida para proporcionar o melhor tratamento possível.\n\nCada contribuição, grande ou pequena, faz diferença em sua jornada de recuperação.",
+    "credentials": "Credenciais Médicas",
+    "credentialsList": [
+      "Pós-Doutorado: Karmanos Cancer Institute (EUA)",
+      "Doutorado: Universidade de Würzburg (Alemanha)",
+      "Especialização: Hospital Adventista Silvestre (Rio de Janeiro)",
+      "CREMESP 52639 | CRM-MT 7318"
+    ]
+  },
+  "donation": {
+    "title": "Apoie a Recuperação do Dr. José",
+    "selectAmount": "Selecione o Valor",
+    "customAmount": "Outro Valor",
+    "currency": "Moeda",
+    "oneTime": "Única",
+    "monthly": "Mensal",
+    "anonymous": "Doar Anonimamente",
+    "yourName": "Seu Nome (Opcional)",
+    "yourEmail": "Seu Email (Opcional)",
+    "message": "Deixe uma Mensagem (Opcional)",
+    "makePublic": "Tornar mensagem pública",
+    "processing": "Processando...",
+    "selectPayment": "Selecione o Método de Pagamento",
+    "card": "Cartão de Crédito/Débito",
+    "paypal": "PayPal",
+    "pix": "PIX (Brasil)",
+    "mbway": "MB Way (Portugal)",
+    "bankTransfer": "Transferência Bancária"
+  },
+  "payment": {
+    "secure": "Pagamento seguro processado por",
+    "disclaimer": "As doações são presentes pessoais para apoiar o tratamento médico e não são contribuições beneficentes dedutíveis de impostos.",
+    "privacy": "Coletamos apenas dados mínimos necessários para processar a doação. Suas informações nunca são vendidas ou compartilhadas.",
+    "zeroFees": "Sem taxas - 100% vai para o tratamento"
+  },
+  "updates": {
+    "title": "Últimas Atualizações",
+    "postedBy": "Postado por",
+    "readMore": "Ler Mais",
+    "noUpdates": "Atualizações da família aparecerão aqui"
+  },
+  "footer": {
+    "organized": "Organizado pela Família de José",
+    "contact": "Contato",
+    "privacy": "Privacidade",
+    "disclaimer": "Campanha de Arrecadação Pessoal"
+  },
+  "share": {
+    "title": "Compartilhe a História de José",
+    "facebook": "Compartilhar no Facebook",
+    "twitter": "Compartilhar no Twitter",
+    "whatsapp": "Compartilhar no WhatsApp",
+    "copyLink": "Copiar Link",
+    "linkCopied": "Link Copiado!"
+  },
+  "thank": {
+    "title": "Obrigado!",
+    "message": "Sua generosidade significa muito para José e sua família.",
+    "receipt": "Um recibo será enviado para seu email se fornecido.",
+    "sharePrompt": "Ajude a espalhar a história de José",
+    "returnHome": "Voltar à Página Inicial"
+  },
+  "error": {
+    "general": "Algo deu errado. Por favor, tente novamente.",
+    "payment": "O pagamento não pôde ser processado. Por favor, tente um método diferente.",
+    "network": "Erro de conexão. Por favor, verifique sua internet e tente novamente.",
+    "minAmount": "A doação mínima é R$ 5"
+  }
+}
