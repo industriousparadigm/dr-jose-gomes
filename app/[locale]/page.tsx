@@ -1,16 +1,17 @@
-import { useTranslations } from 'next-intl'
 import { HeroSection } from '@/components/sections/HeroSection'
 import { StorySection } from '@/components/sections/StorySection'
 import { DonationSection } from '@/components/sections/DonationSection'
 import { UpdatesSection } from '@/components/sections/UpdatesSection'
 import { Footer } from '@/components/layout/Footer'
-import { getStats } from '@/lib/db/donations'
-import { getUpdates } from '@/lib/db/updates'
+// import { getStats } from '@/lib/db/donations'
+// import { getUpdates } from '@/lib/db/updates'
+
+import { Update } from '@/types'
 
 export default async function HomePage() {
   // Fetch data server-side
   let stats = null
-  let updates = []
+  let updates: Update[] = []
   
   try {
     // For now, we'll use mock data since DB might not be initialized

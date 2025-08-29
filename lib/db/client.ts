@@ -3,9 +3,9 @@ import { sql } from '@vercel/postgres'
 export { sql }
 
 // Helper function for safe database queries
-export async function query<T = any>(
+export async function query<T = unknown>(
   queryText: string,
-  values?: any[]
+  values?: unknown[]
 ): Promise<T[]> {
   try {
     const result = await sql.query(queryText, values)

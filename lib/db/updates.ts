@@ -2,6 +2,8 @@ import { sql } from '@vercel/postgres'
 import { Update } from '@/types'
 
 export async function createUpdate(update: Omit<Update, 'id' | 'created_at'>): Promise<Update> {
+  const mediaUrlsJson = update.media_urls ? JSON.stringify(update.media_urls) : null
+  
   const result = await sql<Update>`
     INSERT INTO updates (
       title_pt, title_en, content_pt, content_en,
@@ -9,7 +11,7 @@ export async function createUpdate(update: Omit<Update, 'id' | 'created_at'>): P
     ) VALUES (
       ${update.title_pt}, ${update.title_en},
       ${update.content_pt}, ${update.content_en},
-      ${update.media_urls || null}, ${update.author},
+      ${mediaUrlsJson}, ${update.author},
       ${update.is_pinned || false}
     )
     RETURNING *
@@ -44,5 +46,5 @@ export async function deleteUpdate(id: string): Promise<boolean> {
     WHERE id = ${id}
   `
   
-  return result.rowCount > 0
+  return (result.rowCount ?? 0) > 0
 }

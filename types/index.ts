@@ -3,6 +3,7 @@ export interface Donation {
   amount: number
   currency: 'USD' | 'BRL' | 'EUR'
   payment_method: string
+  processor_id?: string
   donor_name?: string
   donor_email?: string
   donor_message?: string

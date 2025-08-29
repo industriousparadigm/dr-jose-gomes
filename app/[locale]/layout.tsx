@@ -24,15 +24,14 @@ export const metadata: Metadata = {
   },
 }
 
-interface LocaleLayoutProps {
-  children: React.ReactNode
-  params: { locale: string }
-}
-
 export default async function LocaleLayout({
   children,
-  params: { locale }
-}: LocaleLayoutProps) {
+  params
+}: {
+  children: React.ReactNode
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
   const locales = ['en', 'pt']
   if (!locales.includes(locale)) {
     notFound()

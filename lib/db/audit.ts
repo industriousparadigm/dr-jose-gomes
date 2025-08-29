@@ -4,7 +4,7 @@ import crypto from 'crypto'
 interface AuditLog {
   id: string
   event_type: string
-  event_data: any
+  event_data: unknown
   hash: string
   created_at: Date
 }
@@ -13,7 +13,7 @@ let lastHash = ''
 
 export async function createAuditLog(
   eventType: string,
-  eventData: any
+  eventData: unknown
 ): Promise<AuditLog> {
   // Create hash chain for tamper detection
   const dataString = JSON.stringify({ eventType, eventData, timestamp: new Date().toISOString() })
@@ -58,14 +58,14 @@ export async function getAuditLogs(
 // Log critical events
 export async function logDonationEvent(
   type: 'initiated' | 'completed' | 'failed' | 'refunded',
-  donationData: any
+  donationData: unknown
 ) {
   return createAuditLog(`donation_${type}`, donationData)
 }
 
 export async function logAdminAction(
   action: string,
-  data: any
+  data: unknown
 ) {
   return createAuditLog(`admin_${action}`, data)
 }
