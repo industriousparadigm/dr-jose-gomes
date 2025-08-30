@@ -7,7 +7,7 @@ Font.register({
   fonts: [
     { src: 'https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Me5Q.ttf' },
     { src: 'https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmWUlvAw.ttf', fontWeight: 700 },
-  ]
+  ],
 })
 
 const styles = StyleSheet.create({
@@ -170,7 +170,7 @@ export const DonationCertificate: React.FC<{ data: CertificateData }> = ({ data 
 
   return (
     <Document>
-      <Page size="A4" style={styles.page}>
+      <Page size='A4' style={styles.page}>
         <View style={styles.container}>
           {/* Watermark */}
           <Text style={styles.watermark}>THANK YOU</Text>
@@ -183,15 +183,16 @@ export const DonationCertificate: React.FC<{ data: CertificateData }> = ({ data 
 
           {/* Body */}
           <Text style={styles.certifyText}>{t.certify}</Text>
-          
+
           <Text style={styles.donorName}>{data.donorName}</Text>
-          
+
           <Text style={styles.contributionText}>{t.hasContributed}</Text>
-          
+
           <Text style={styles.amount}>
-            {data.currency === 'USD' ? '$' : 'R$'}{data.amount}
+            {data.currency === 'USD' ? '$' : 'R$'}
+            {data.amount}
           </Text>
-          
+
           <Text style={styles.contributionText}>{t.toSupport}</Text>
 
           {/* Message if provided */}
@@ -241,11 +242,25 @@ export async function generateCertificatePDF(data: CertificateData): Promise<Blo
 
 // Helper function to download PDF
 export async function downloadCertificate(data: CertificateData) {
-  const blob = await generateCertificatePDF(data)
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.href = url
-  link.download = `donation-certificate-${data.certificateId}.pdf`
-  link.click()
-  URL.revokeObjectURL(url)
+  console.log('[Certificate] Starting PDF generation with data:', data)
+
+  try {
+    const blob = await generateCertificatePDF(data)
+    console.log('[Certificate] PDF blob generated, size:', blob.size)
+
+    const url = URL.createObjectURL(blob)
+    console.log('[Certificate] Object URL created:', url)
+
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `donation-certificate-${data.certificateId}.pdf`
+    console.log('[Certificate] Triggering download for:', link.download)
+
+    link.click()
+    URL.revokeObjectURL(url)
+    console.log('[Certificate] Download triggered successfully')
+  } catch (error) {
+    console.error('[Certificate] Error generating/downloading PDF:', error)
+    throw error
+  }
 }

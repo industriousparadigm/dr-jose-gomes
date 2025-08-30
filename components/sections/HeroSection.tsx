@@ -15,6 +15,11 @@ export function HeroSection({ stats }: HeroSectionProps) {
   const t = useTranslations('hero')
   const [isShareOpen, setIsShareOpen] = useState(false)
 
+  console.log('[HeroSection] Rendering with locale translations:', {
+    donateNow: t('donateNow'),
+    shareStory: t('shareStory'),
+  })
+
   const percentage = stats ? formatPercentage(stats.total_raised, stats.goal_amount) : 0
 
   return (
@@ -72,9 +77,15 @@ export function HeroSection({ stats }: HeroSectionProps) {
               {/* CTA Buttons */}
               <div className='flex flex-col sm:flex-row gap-4'>
                 <button
-                  onClick={() =>
-                    document.getElementById('donation')?.scrollIntoView({ behavior: 'smooth' })
-                  }
+                  onClick={() => {
+                    console.log('[HeroSection] Donate button clicked')
+                    const element = document.getElementById('donation')
+                    console.log('[HeroSection] Donation element found:', !!element)
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth' })
+                      console.log('[HeroSection] Scrolling to donation section')
+                    }
+                  }}
                   className='flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 cursor-pointer'
                 >
                   <Heart className='w-5 h-5' />
@@ -82,7 +93,10 @@ export function HeroSection({ stats }: HeroSectionProps) {
                 </button>
 
                 <button
-                  onClick={() => setIsShareOpen(true)}
+                  onClick={() => {
+                    console.log('[HeroSection] Share button clicked, opening modal')
+                    setIsShareOpen(true)
+                  }}
                   className='flex items-center justify-center gap-2 px-8 py-4 bg-white hover:bg-gray-50 text-gray-700 font-semibold rounded-lg border border-gray-300 shadow hover:shadow-md transition-all duration-200 cursor-pointer'
                 >
                   <Share2 className='w-5 h-5' />
