@@ -195,11 +195,9 @@ describe('Donation Database Functions', () => {
       const donation = await getDonationById('test-id')
 
       expect(donation).toEqual(donationFixtures.completed)
-      expect(sql).toHaveBeenCalledWith(
-        expect.arrayContaining([
-          expect.stringContaining('WHERE id =')
-        ])
-      )
+      expect(sql).toHaveBeenCalled()
+      const callArgs = sql.mock.calls[0]
+      expect(callArgs[0][0]).toContain('WHERE id =')
     })
 
     it('should return null when donation not found', async () => {

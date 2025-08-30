@@ -148,7 +148,7 @@ describe('/api/donations/create-checkout', () => {
       is_anonymous: true,
       is_message_public: false,
       status: 'pending',
-      ip_country: null
+      ip_country: undefined
     })
   })
 

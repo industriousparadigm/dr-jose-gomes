@@ -265,6 +265,83 @@ sql`INSERT INTO donations (amount) VALUES (${100})`
 sql(['INSERT INTO donations (amount) VALUES (', ')'], 100)
 ```
 
+## 🔍 Debugging Methodology - Think Like a Detective
+
+### When Something "Should Work" But Doesn't
+
+**STOP trying to fix it. START investigating what's blocking it.**
+
+This is the #1 debugging mistake: repeatedly rewriting working code instead of finding what's preventing it from working.
+
+#### The Investigation Process
+
+1. **Verify the symptom**
+   - What exactly isn't working? 
+   - Is there any console output?
+   - Does the cursor change on hover?
+   - Are event listeners attached in DevTools?
+
+2. **Check for blockers BEFORE changing code**
+   ```bash
+   # Check for overlaying elements
+   # In browser DevTools Console:
+   document.elementFromPoint(x, y)  # What element is at click position?
+   
+   # Check z-index stacking
+   getComputedStyle(element).zIndex
+   
+   # Check pointer-events
+   getComputedStyle(element).pointerEvents
+   ```
+
+3. **Common blocking patterns**
+   - **Invisible overlays**: `absolute/fixed` positioned elements with `inset-0`
+   - **Z-index issues**: Element buried under other layers
+   - **Pointer events**: Parent has `pointer-events: none`
+   - **Event propagation**: `stopPropagation()` somewhere up the chain
+   - **Hydration mismatch**: Server and client HTML don't match
+
+4. **The "Working Backwards" approach**
+   - Start from what you KNOW works (e.g., native HTML button)
+   - Gradually add your styles/handlers
+   - Find the exact change that breaks it
+
+#### Real Example: The Button That Wouldn't Click
+
+**Wrong approach** (what I did 10+ times):
+```tsx
+// Iteration 1: "Maybe onClick isn't working"
+<button onClick={handleClick}>
+
+// Iteration 2: "Maybe it needs event delegation"  
+<button onClick={(e) => handleClick(e)}>
+
+// Iteration 3: "Maybe React hydration is broken"
+useEffect(() => {
+  document.querySelector('button').addEventListener('click', ...)
+})
+
+// Iteration 4-10: More desperate attempts...
+```
+
+**Right approach** (what finally worked):
+```tsx
+// 1. Check what element receives the click
+document.addEventListener('click', (e) => console.log(e.target))
+// Result: <div class="absolute inset-0"> -- AHA! An overlay!
+
+// 2. Fix the actual problem
+<div className="absolute inset-0 pointer-events-none">
+```
+
+#### Key Lessons
+
+- **If multiple fixes don't work, you're fixing the wrong thing**
+- **Invisible doesn't mean not there** (opacity-0, transparent overlays)  
+- **Trust the user's report** ("no logs appear" = events aren't firing at all)
+- **Use DevTools aggressively** (Elements panel, Event Listeners, Console)
+- **Question your assumptions** ("The button must be broken" vs "Something is blocking the button")
+
 ## Debugging Tips
 
 ### Enable Verbose Logging

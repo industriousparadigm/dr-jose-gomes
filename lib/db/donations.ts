@@ -6,12 +6,12 @@ export async function createDonation(donation: Partial<Donation>): Promise<Donat
     INSERT INTO donations (
       amount, currency, payment_method, processor_id,
       donor_name, donor_email, donor_message,
-      is_anonymous, is_public, status
+      is_anonymous, is_message_public, status
     ) VALUES (
       ${donation.amount}, ${donation.currency}, ${donation.payment_method},
       ${donation.processor_id || null}, ${donation.donor_name || null},
       ${donation.donor_email || null}, ${donation.donor_message || null},
-      ${donation.is_anonymous ?? true}, ${donation.is_public ?? false},
+      ${donation.is_anonymous ?? true}, ${donation.is_message_public ?? false},
       ${donation.status || 'pending'}
     )
     RETURNING *

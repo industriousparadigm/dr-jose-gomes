@@ -68,7 +68,7 @@ export function HeroSection({ stats }: HeroSectionProps) {
   return (
     <section className='relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-green-50'>
       {/* Background decoration */}
-      <div className='absolute inset-0 bg-grid-pattern opacity-5' />
+      <div className='absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none' />
 
       <div className='container mx-auto px-4 py-12 md:py-20'>
         <div className='max-w-6xl mx-auto'>
@@ -162,8 +162,8 @@ export function HeroSection({ stats }: HeroSectionProps) {
               </div>
 
               {/* Decorative elements */}
-              <div className='absolute -top-4 -right-4 w-24 h-24 bg-blue-200 rounded-full opacity-20 blur-2xl' />
-              <div className='absolute -bottom-4 -left-4 w-32 h-32 bg-green-200 rounded-full opacity-20 blur-2xl' />
+              <div className='absolute -top-4 -right-4 w-24 h-24 bg-blue-200 rounded-full opacity-20 blur-2xl pointer-events-none' />
+              <div className='absolute -bottom-4 -left-4 w-32 h-32 bg-green-200 rounded-full opacity-20 blur-2xl pointer-events-none' />
             </div>
           </div>
         </div>

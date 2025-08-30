@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
       is_anonymous: isAnonymous || false,
       is_message_public: !isAnonymous,
       status: 'pending',
-      ip_country: request.headers.get('x-vercel-ip-country') || null,
+      ip_country: request.headers.get('x-vercel-ip-country') || undefined,
     })
 
     return NextResponse.json({

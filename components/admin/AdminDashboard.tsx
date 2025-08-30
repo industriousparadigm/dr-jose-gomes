@@ -20,21 +20,7 @@ import {
 } from 'lucide-react'
 import { toast } from 'sonner'
 import { formatCurrency } from '@/lib/utils/format'
-import { Stats } from '@/types'
-
-interface Donation {
-  id: string
-  amount: number
-  currency: string
-  donor_name?: string
-  donor_email?: string
-  message?: string
-  is_anonymous: boolean
-  is_public: boolean
-  status: string
-  created_at: string
-  processor_id?: string
-}
+import { Stats, Donation } from '@/types'
 
 interface AdminDashboardProps {
   stats: Stats | null
@@ -85,7 +71,7 @@ export function AdminDashboard({ stats, donations }: AdminDashboardProps) {
     const matchesSearch = searchTerm === '' || 
       donation.donor_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       donation.donor_email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      donation.message?.toLowerCase().includes(searchTerm.toLowerCase())
+      donation.donor_message?.toLowerCase().includes(searchTerm.toLowerCase())
     
     const matchesStatus = statusFilter === 'all' || donation.status === statusFilter
 
@@ -264,7 +250,7 @@ export function AdminDashboard({ stats, donations }: AdminDashboardProps) {
                 {recentDonations.map((donation) => (
                   <tr key={donation.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {new Date(donation.created_at).toLocaleDateString()}
+                      {donation.created_at.toLocaleDateString()}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div>
@@ -297,7 +283,7 @@ export function AdminDashboard({ stats, donations }: AdminDashboardProps) {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-900 max-w-xs truncate">
-                      {donation.message || '-'}
+                      {donation.donor_message || '-'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {donation.processor_id ? (
