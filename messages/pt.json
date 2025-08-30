@@ -38,7 +38,9 @@
     "paypal": "PayPal",
     "pix": "PIX (Brasil)",
     "mbway": "MB Way (Portugal)",
-    "bankTransfer": "Transferência Bancária"
+    "bankTransfer": "Transferência Bancária",
+    "disclaimer": "As doações são presentes pessoais para apoiar o tratamento médico e não são contribuições beneficentes dedutíveis de impostos.",
+    "privacy": "Coletamos apenas dados mínimos necessários para processar a doação. Suas informações nunca são vendidas ou compartilhadas."
   },
   "payment": {
     "secure": "Pagamento seguro processado por",
@@ -63,15 +65,23 @@
     "facebook": "Compartilhar no Facebook",
     "twitter": "Compartilhar no Twitter",
     "whatsapp": "Compartilhar no WhatsApp",
+    "email": "Compartilhar por Email",
     "copyLink": "Copiar Link",
-    "linkCopied": "Link Copiado!"
+    "linkCopied": "Link Copiado!",
+    "message": "Ajude o Dr. José Gomes a se recuperar de um AVC. Após 50 anos curando outros, ele precisa da nossa ajuda."
   },
   "thank": {
-    "title": "Obrigado!",
-    "message": "Sua generosidade significa muito para José e sua família.",
+    "title": "Obrigado pela Sua Generosidade!",
+    "message": "Sua doação fará uma diferença real na jornada de recuperação do Dr. José.",
+    "donationReceived": "Doação Recebida",
+    "downloadReceipt": "Baixar Recibo",
+    "shareStory": "Compartilhar a História de José",
+    "personalMessage": "Sua bondade e apoio significam tudo para nossa família durante este momento desafiador. Cada contribuição traz esperança e ajuda a garantir que José receba o melhor cuidado possível.",
+    "fromFamily": "A Família Gomes",
+    "returnHome": "Voltar à Página Inicial",
+    "emailConfirmation": "Um email de confirmação com seu recibo foi enviado para seu endereço de email.",
     "receipt": "Um recibo será enviado para seu email se fornecido.",
-    "sharePrompt": "Ajude a espalhar a história de José",
-    "returnHome": "Voltar à Página Inicial"
+    "sharePrompt": "Ajude a espalhar a história de José"
   },
   "error": {
     "general": "Algo deu errado. Por favor, tente novamente.",

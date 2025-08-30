@@ -5,6 +5,7 @@ import { Heart, Share2 } from 'lucide-react'
 import { Stats } from '@/types'
 import { formatCurrency, formatPercentage } from '@/lib/utils/format'
 import { useState } from 'react'
+import { ShareModal } from '@/components/share/ShareModal'
 
 interface HeroSectionProps {
   stats: Stats | null
@@ -119,6 +120,9 @@ export function HeroSection({ stats }: HeroSectionProps) {
           </div>
         </div>
       </div>
+      
+      {/* Share Modal */}
+      <ShareModal isOpen={isShareOpen} onClose={() => setIsShareOpen(false)} />
     </section>
   )
 }

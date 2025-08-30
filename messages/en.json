@@ -38,7 +38,9 @@
     "paypal": "PayPal",
     "pix": "PIX (Brazil)",
     "mbway": "MB Way (Portugal)",
-    "bankTransfer": "Bank Transfer"
+    "bankTransfer": "Bank Transfer",
+    "disclaimer": "Donations are personal gifts to support medical treatment and are not tax-deductible charitable contributions.",
+    "privacy": "We collect minimal data necessary for donation processing. Your information is never sold or shared."
   },
   "payment": {
     "secure": "Secure payment processed by",
@@ -63,15 +65,23 @@
     "facebook": "Share on Facebook",
     "twitter": "Share on Twitter",
     "whatsapp": "Share on WhatsApp",
+    "email": "Share via Email",
     "copyLink": "Copy Link",
-    "linkCopied": "Link Copied!"
+    "linkCopied": "Link Copied!",
+    "message": "Help Dr. José Gomes recover from stroke. After 50 years healing others, he needs our help."
   },
   "thank": {
-    "title": "Thank You!",
-    "message": "Your generosity means the world to José and his family.",
+    "title": "Thank You for Your Generosity!",
+    "message": "Your donation will make a real difference in Dr. José's recovery journey.",
+    "donationReceived": "Donation Received",
+    "downloadReceipt": "Download Receipt",
+    "shareStory": "Share José's Story",
+    "personalMessage": "Your kindness and support mean everything to our family during this challenging time. Every contribution brings hope and helps ensure José receives the best possible care.",
+    "fromFamily": "The Gomes Family",
+    "returnHome": "Return to Homepage",
+    "emailConfirmation": "A confirmation email with your receipt has been sent to your email address.",
     "receipt": "A receipt will be sent to your email if provided.",
-    "sharePrompt": "Help spread José's story",
-    "returnHome": "Return to Homepage"
+    "sharePrompt": "Help spread José's story"
   },
   "error": {
     "general": "Something went wrong. Please try again.",

@@ -3,12 +3,15 @@ import { StorySection } from '@/components/sections/StorySection'
 import { DonationSection } from '@/components/sections/DonationSection'
 import { UpdatesSection } from '@/components/sections/UpdatesSection'
 import { Footer } from '@/components/layout/Footer'
+import { Header } from '@/components/layout/Header'
+import { StructuredData } from '@/components/seo/StructuredData'
 // import { getStats } from '@/lib/db/donations'
 // import { getUpdates } from '@/lib/db/updates'
 
 import { Update } from '@/types'
 
-export default async function HomePage() {
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
   // Fetch data server-side
   let stats = null
   let updates: Update[] = []
@@ -28,11 +31,15 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
-      <HeroSection stats={stats} />
-      <StorySection />
-      <DonationSection />
-      <UpdatesSection updates={updates} />
-      <Footer />
+      <StructuredData />
+      <Header locale={locale} />
+      <div className="pt-16">
+        <HeroSection stats={stats} />
+        <StorySection />
+        <DonationSection />
+        <UpdatesSection updates={updates} />
+        <Footer />
+      </div>
     </div>
   )
 }

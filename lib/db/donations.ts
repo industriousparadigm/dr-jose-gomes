@@ -104,3 +104,24 @@ export async function getAllDonations(
     total: Number(count.rows[0].count)
   }
 }
+
+export async function getDonationByProcessorId(processorId: string): Promise<Donation | null> {
+  const result = await sql<Donation>`
+    SELECT * FROM donations
+    WHERE processor_id = ${processorId}
+    LIMIT 1
+  `
+  
+  return result.rows[0] || null
+}
+
+export async function updateDonationStatusByProcessorId(
+  processorId: string, 
+  status: Donation['status']
+): Promise<void> {
+  await sql`
+    UPDATE donations
+    SET status = ${status}, updated_at = CURRENT_TIMESTAMP
+    WHERE processor_id = ${processorId}
+  `
+}

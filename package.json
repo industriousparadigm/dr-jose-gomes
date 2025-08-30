@@ -6,21 +6,39 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seed": "tsx scripts/seed-donations.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@radix-ui/react-tabs": "^1.1.13",
+    "@react-email/components": "^0.5.1",
+    "@react-pdf/renderer": "^4.3.0",
+    "@stripe/stripe-js": "^7.9.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/uuid": "^10.0.0",
     "@vercel/postgres": "^0.10.0",
+    "bcryptjs": "^3.0.2",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "framer-motion": "^12.23.12",
+    "iron-session": "^8.0.4",
+    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.542.0",
     "next": "15.5.2",
     "next-intl": "^4.3.5",
+    "nodemailer": "^7.0.5",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.62.0",
+    "react-hot-toast": "^2.6.0",
+    "resend": "^6.0.2",
+    "sonner": "^2.0.7",
+    "stripe": "^18.5.0",
     "tailwind-merge": "^3.3.1",
+    "uuid": "^11.1.0",
     "zod": "^4.1.5",
     "zustand": "^5.0.8"
   },
@@ -33,6 +51,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.5.2",
     "tailwindcss": "^4",
+    "tsx": "^4.20.5",
     "typescript": "^5"
   }
 }
