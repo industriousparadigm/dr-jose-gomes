@@ -12,7 +12,8 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://josegomes.fund'),
   title: 'Help Dr. José Gomes - Medical Recovery Fund',
-  description: 'Support Dr. José Gomes de Oliveira, a 74-year-old urologist, in his recovery from stroke. After 50 years of healing others, he needs our help.',
+  description:
+    'Support Dr. José Gomes de Oliveira, a 74-year-old urologist, in his recovery from stroke. After 50 years of healing others, he needs our help.',
   keywords: 'Dr José Gomes, medical fundraising, stroke recovery, crowdfunding',
   openGraph: {
     title: 'Help Dr. José Gomes Recover',
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
 
 export default async function LocaleLayout({
   children,
-  params
+  params,
 }: {
   children: React.ReactNode
   params: Promise<{ locale: string }>
@@ -40,7 +41,7 @@ export default async function LocaleLayout({
     notFound()
   }
 
-  const messages = await getMessages()
+  const messages = await getMessages({ locale })
 
   return (
     <html lang={locale}>
@@ -48,7 +49,7 @@ export default async function LocaleLayout({
         <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} />
         <NextIntlClientProvider messages={messages}>
           {children}
-          <Toaster position="top-center" richColors />
+          <Toaster position='top-center' richColors />
         </NextIntlClientProvider>
       </body>
     </html>

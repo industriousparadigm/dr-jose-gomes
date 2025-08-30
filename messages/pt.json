@@ -1,4 +1,10 @@
 {
+  "header": {
+    "story": "História",
+    "donate": "Doar",
+    "updates": "Atualizações",
+    "contribute": "Contribuir"
+  },
   "hero": {
     "headline": "Após 50 anos cuidando de outros, Dr. José precisa de nós",
     "subheadline": "Médico urologista de 74 anos precisa de tratamento especializado após AVC",

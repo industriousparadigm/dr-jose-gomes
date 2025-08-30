@@ -1,4 +1,10 @@
 {
+  "header": {
+    "story": "Story",
+    "donate": "Donate",
+    "updates": "Updates",
+    "contribute": "Contribute"
+  },
   "hero": {
     "headline": "After 50 years healing others, Dr. José needs our help",
     "subheadline": "74-year-old urologist needs specialized treatment after stroke",
