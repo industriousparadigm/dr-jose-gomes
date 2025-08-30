@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl'
 import { Heart, Share2 } from 'lucide-react'
 import { Stats } from '@/types'
 import { formatCurrency, formatPercentage } from '@/lib/utils/format'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ShareModal } from '@/components/share/ShareModal'
 
 interface HeroSectionProps {
@@ -14,10 +14,53 @@ interface HeroSectionProps {
 export function HeroSection({ stats }: HeroSectionProps) {
   const t = useTranslations('hero')
   const [isShareOpen, setIsShareOpen] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
+
+  const handleDonateClick = () => {
+    console.log('[HeroSection] Donate button clicked!')
+    const element = document.getElementById('donation')
+    console.log('[HeroSection] Donation element found:', !!element)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+      console.log('[HeroSection] Scrolling to donation section')
+    } else {
+      console.error('[HeroSection] Could not find donation section!')
+    }
+  }
+
+  const handleShareClick = () => {
+    console.log('[HeroSection] Share button clicked!')
+    setIsShareOpen(true)
+  }
+
+  useEffect(() => {
+    setIsMounted(true)
+    console.log('[HeroSection] Component mounted, buttons should be interactive')
+
+    // Debug: Force attach event listeners if React isn't working
+    const donateBtn = document.querySelector('[data-button="donate"]') as HTMLButtonElement
+    const shareBtn = document.querySelector('[data-button="share"]') as HTMLButtonElement
+
+    if (donateBtn) {
+      console.log('[HeroSection] Found donate button, attaching listener')
+      donateBtn.addEventListener('click', handleDonateClick)
+    }
+
+    if (shareBtn) {
+      console.log('[HeroSection] Found share button, attaching listener')
+      shareBtn.addEventListener('click', handleShareClick)
+    }
+
+    return () => {
+      if (donateBtn) donateBtn.removeEventListener('click', handleDonateClick)
+      if (shareBtn) shareBtn.removeEventListener('click', handleShareClick)
+    }
+  }, [])
 
   console.log('[HeroSection] Rendering with locale translations:', {
     donateNow: t('donateNow'),
     shareStory: t('shareStory'),
+    isMounted,
   })
 
   const percentage = stats ? formatPercentage(stats.total_raised, stats.goal_amount) : 0
@@ -77,30 +120,25 @@ export function HeroSection({ stats }: HeroSectionProps) {
               {/* CTA Buttons */}
               <div className='flex flex-col sm:flex-row gap-4'>
                 <button
-                  onClick={() => {
-                    console.log('[HeroSection] Donate button clicked')
-                    const element = document.getElementById('donation')
-                    console.log('[HeroSection] Donation element found:', !!element)
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth' })
-                      console.log('[HeroSection] Scrolling to donation section')
-                    }
-                  }}
+                  type='button'
+                  data-button='donate'
+                  onClick={handleDonateClick}
                   className='flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 cursor-pointer'
+                  aria-label={t('donateNow')}
                 >
                   <Heart className='w-5 h-5' />
-                  {t('donateNow')}
+                  <span>{t('donateNow')}</span>
                 </button>
 
                 <button
-                  onClick={() => {
-                    console.log('[HeroSection] Share button clicked, opening modal')
-                    setIsShareOpen(true)
-                  }}
+                  type='button'
+                  data-button='share'
+                  onClick={handleShareClick}
                   className='flex items-center justify-center gap-2 px-8 py-4 bg-white hover:bg-gray-50 text-gray-700 font-semibold rounded-lg border border-gray-300 shadow hover:shadow-md transition-all duration-200 cursor-pointer'
+                  aria-label={t('shareStory')}
                 >
                   <Share2 className='w-5 h-5' />
-                  {t('shareStory')}
+                  <span>{t('shareStory')}</span>
                 </button>
               </div>
             </div>
