@@ -1,5 +1,4 @@
-import { getStats } from '@/lib/db'
-import { getDonations } from '@/lib/donations'
+import { getStats, getAllDonations } from '@/lib/db/donations'
 import { isAuthenticated } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import { AdminDashboard } from '@/components/admin/AdminDashboard'
@@ -11,10 +10,12 @@ export default async function AdminDashboardPage() {
     redirect('/admin/login')
   }
 
-  const [stats, donations] = await Promise.all([
+  const [stats, donationsResult] = await Promise.all([
     getStats(),
-    getDonations()
+    getAllDonations()
   ])
+  
+  const donations = donationsResult.donations
 
   return <AdminDashboard stats={stats} donations={donations} />
 }

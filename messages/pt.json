@@ -89,5 +89,39 @@
     "payment": "O pagamento não pôde ser processado. Por favor, tente um método diferente.",
     "network": "Erro de conexão. Por favor, verifique sua internet e tente novamente.",
     "minAmount": "A doação mínima é R$ 5"
+  },
+  "contact": {
+    "title": "Contato",
+    "description": "Para questões sobre a campanha ou para enviar seus votos de melhoras ao Dr. José, entre em contato conosco.",
+    "email": "Email",
+    "message": "Mensagem",
+    "messageDescription": "Você também pode deixar uma mensagem junto com sua doação.",
+    "campaignInfo": "Esta é uma campanha pessoal organizada pela família Gomes. Todas as doações vão diretamente para o tratamento médico do Dr. José."
+  },
+  "privacy": {
+    "title": "Política de Privacidade",
+    "subtitle": "Seu Privacidade é Nossa Prioridade",
+    "informationWeCollect": "Informações que Coletamos",
+    "howWeUse": "Como Usamos Suas Informações",
+    "yourRights": "Seus Direitos",
+    "collectItems": {
+      "name": "Nome (se fornecido)",
+      "email": "Email (se fornecido)",
+      "donationAmount": "Valor da doação",
+      "message": "Mensagem (se fornecida)"
+    },
+    "useItems": {
+      "process": "Processar sua doação com segurança",
+      "confirmation": "Enviar confirmação de recebimento",
+      "publicMessages": "Mostrar mensagens públicas (apenas com sua permissão)"
+    },
+    "rightsItems": {
+      "anonymous": "Você pode doar anonimamente",
+      "notSold": "Suas informações nunca serão vendidas",
+      "removal": "Você pode solicitar a remoção de suas informações"
+    },
+    "securePayments": "Pagamentos Seguros:",
+    "securePaymentsText": "Todos os pagamentos são processados com segurança pelo Stripe. Nós não armazenamos informações de cartão de crédito.",
+    "lastUpdated": "Última atualização:"
   }
 }

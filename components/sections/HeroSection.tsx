@@ -86,7 +86,7 @@ export function HeroSection({ stats }: HeroSectionProps) {
                 </button>
                 
                 <button
-                  onClick={() => setIsShareOpen(!isShareOpen)}
+                  onClick={() => setIsShareOpen(true)}
                   className="flex items-center justify-center gap-2 px-8 py-4 bg-white hover:bg-gray-50 text-gray-700 font-semibold rounded-lg border border-gray-300 shadow hover:shadow-md transition-all duration-200"
                 >
                   <Share2 className="w-5 h-5" />

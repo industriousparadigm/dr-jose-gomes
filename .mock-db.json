@@ -1,0 +1,11 @@
+{
+  "donations": [],
+  "campaign_stats": {
+    "id": 1,
+    "total_raised": 0,
+    "goal_amount": 25000,
+    "donor_count": 0
+  },
+  "updates": [],
+  "audit_log": []
+}

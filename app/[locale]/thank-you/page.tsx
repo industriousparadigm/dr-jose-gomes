@@ -4,10 +4,11 @@ import { CheckCircle, Download, Share2, Heart } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { useState } from 'react'
+import { useState, use } from 'react'
 import { toast } from 'sonner'
 
-export default function ThankYouPage({ params }: { params: { locale: string } }) {
+export default function ThankYouPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = use(params)
   const t = useTranslations('thank')
   const searchParams = useSearchParams()
   const [isDownloading, setIsDownloading] = useState(false)
@@ -29,7 +30,7 @@ export default function ThankYouPage({ params }: { params: { locale: string } })
         date: new Date().toLocaleDateString(),
         message: message || undefined,
         certificateId: sessionId.substring(0, 8) || 'XXXXXX',
-        locale: params.locale as 'en' | 'pt'
+        locale: locale as 'en' | 'pt'
       })
       toast.success('Certificate downloaded!')
     } catch (error) {

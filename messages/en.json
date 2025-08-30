@@ -89,5 +89,39 @@
     "payment": "Payment could not be processed. Please try a different method.",
     "network": "Connection error. Please check your internet and try again.",
     "minAmount": "Minimum donation is $1"
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "For questions about the campaign or to send your well wishes to Dr. José, please contact us.",
+    "email": "Email",
+    "message": "Message",
+    "messageDescription": "You can also leave a message with your donation.",
+    "campaignInfo": "This is a personal campaign organized by the Gomes family. All donations go directly to Dr. José's medical treatment."
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "subtitle": "Your Privacy is Our Priority",
+    "informationWeCollect": "Information We Collect",
+    "howWeUse": "How We Use Your Information",
+    "yourRights": "Your Rights",
+    "collectItems": {
+      "name": "Name (if provided)",
+      "email": "Email (if provided)",
+      "donationAmount": "Donation amount",
+      "message": "Message (if provided)"
+    },
+    "useItems": {
+      "process": "Process your donation securely",
+      "confirmation": "Send donation confirmation",
+      "publicMessages": "Display public messages (only with your permission)"
+    },
+    "rightsItems": {
+      "anonymous": "You can donate anonymously",
+      "notSold": "Your information is never sold",
+      "removal": "You can request removal of your information"
+    },
+    "securePayments": "Secure Payments:",
+    "securePaymentsText": "All payments are securely processed by Stripe. We do not store credit card information.",
+    "lastUpdated": "Last updated:"
   }
 }

@@ -42,7 +42,7 @@ export async function createCheckoutSession({
       },
     ],
     mode: 'payment',
-    success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/thank-you?session_id={CHECKOUT_SESSION_ID}`,
+    success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/thank-you?session_id={CHECKOUT_SESSION_ID}&amount=${amount}&name=${encodeURIComponent(donorName || 'Friend')}&message=${encodeURIComponent(message || '')}`,
     cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}`,
     metadata: {
       donorName: donorName || 'Anonymous',

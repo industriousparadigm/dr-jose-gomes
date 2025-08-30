@@ -10,6 +10,7 @@ import '../globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://josegomes.fund'),
   title: 'Help Dr. José Gomes - Medical Recovery Fund',
   description: 'Support Dr. José Gomes de Oliveira, a 74-year-old urologist, in his recovery from stroke. After 50 years of healing others, he needs our help.',
   keywords: 'Dr José Gomes, medical fundraising, stroke recovery, crowdfunding',

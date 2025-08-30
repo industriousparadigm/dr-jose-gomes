@@ -7,7 +7,20 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "seed": "tsx scripts/seed-donations.ts"
+    "db:setup": "tsx scripts/setup-db.ts",
+    "db:seed": "tsx scripts/seed-donations.ts",
+    "setup": "npm run db:setup && npm run db:seed",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --coverage --watchAll=false",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:debug": "playwright test --debug",
+    "test:all": "npm run test:ci && npm run test:e2e",
+    "test:setup": "playwright install",
+    "prepare": "husky",
+    "pre-commit": "lint-staged"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
@@ -23,6 +36,7 @@
     "bcryptjs": "^3.0.2",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "dotenv": "^17.2.1",
     "framer-motion": "^12.23.12",
     "iron-session": "^8.0.4",
     "jsonwebtoken": "^9.0.2",
@@ -30,6 +44,7 @@
     "next": "15.5.2",
     "next-intl": "^4.3.5",
     "nodemailer": "^7.0.5",
+    "pg": "^8.16.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.62.0",
@@ -44,14 +59,41 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@jest/globals": "^30.1.1",
+    "@playwright/test": "^1.55.0",
     "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^30.0.0",
     "@types/node": "^20.19.11",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.5.2",
+    "husky": "^9.1.7",
+    "jest": "^30.1.1",
+    "jest-environment-jsdom": "^30.1.1",
+    "lint-staged": "^16.1.5",
+    "msw": "^2.11.0",
+    "prettier": "^3.6.2",
     "tailwindcss": "^4",
+    "ts-jest": "^29.4.1",
+    "ts-node": "^10.9.2",
     "tsx": "^4.20.5",
-    "typescript": "^5"
+    "typescript": "^5",
+    "whatwg-fetch": "^3.6.20"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,css}": [
+      "prettier --write"
+    ],
+    "**/*.{js,jsx,ts,tsx}": [
+      "npm run test:ci -- --findRelatedTests --passWithNoTests"
+    ]
   }
 }

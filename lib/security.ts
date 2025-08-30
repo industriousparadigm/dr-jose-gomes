@@ -10,24 +10,26 @@ export function addSecurityHeaders(response: NextResponse) {
   response.headers.set('Referrer-Policy', 'origin-when-cross-origin')
   response.headers.set('X-XSS-Protection', '1; mode=block')
   
-  // Content Security Policy
+  // Content Security Policy - Fixed to allow Stripe properly
   const cspHeader = `
     default-src 'self';
-    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://checkout.stripe.com;
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://checkout.stripe.com;
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-    font-src 'self' https://fonts.gstatic.com;
+    font-src 'self' https://fonts.gstatic.com data:;
     img-src 'self' blob: data: https:;
     media-src 'none';
     connect-src 'self' https://api.stripe.com https://checkout.stripe.com https://www.google-analytics.com https://vitals.vercel-insights.com;
-    frame-src 'self' https://checkout.stripe.com https://hooks.stripe.com;
+    frame-src 'self' https://js.stripe.com https://checkout.stripe.com https://hooks.stripe.com;
     object-src 'none';
     base-uri 'self';
-    form-action 'self';
+    form-action 'self' https://checkout.stripe.com;
     frame-ancestors 'none';
-    upgrade-insecure-requests;
   `.replace(/\s{2,}/g, ' ').trim()
   
-  response.headers.set('Content-Security-Policy', cspHeader)
+  // Only set CSP in production to avoid development issues
+  if (process.env.NODE_ENV === 'production') {
+    response.headers.set('Content-Security-Policy', cspHeader)
+  }
   
   // Permissions Policy
   response.headers.set(

@@ -1,235 +1,358 @@
 # Claude Development Guidelines
 
-## Critical Testing Practices to Prevent Runtime Errors
-
-### 1. Client Component Validation
-
-**Issue**: Event handlers cannot be passed to Client Components without 'use client' directive
-**Solution**: Always check components with interactive elements
-
-#### Before implementing any component with event handlers:
-```tsx
-// ❌ WRONG - Will cause runtime error
-export function Header({ locale }: HeaderProps) {
-  return (
-    <button onClick={() => console.log('clicked')}>
-      Click me
-    </button>
-  )
-}
-
-// ✅ CORRECT - Properly marked as client component
-'use client'
-
-export function Header({ locale }: HeaderProps) {
-  return (
-    <button onClick={() => console.log('clicked')}>
-      Click me
-    </button>
-  )
-}
-```
-
-#### Testing Checklist:
-1. **Scan for event handlers**: Search for `onClick`, `onChange`, `onSubmit`, etc.
-2. **Verify 'use client' directive**: Ensure it's at the top of files with event handlers
-3. **Check component imports**: Verify parent components can handle client components
-
-### 2. Running and Testing the Application
-
-#### Always test the application after making changes:
-```bash
-# 1. Start the development server
-npm run dev
-
-# 2. Check for compilation errors in the terminal
-# 3. Open browser and verify no console errors
-# 4. Test all interactive elements
-```
-
-#### Monitor for common errors:
-- Client/Server component mismatches
-- Missing translations
-- Import errors
-- Type mismatches
-
-### 3. Translation Key Validation
-
-**Issue**: Missing translation keys cause runtime errors
-**Solution**: Always verify all translation keys exist
-
-#### When adding new UI text:
-```tsx
-// 1. Check the translation key exists
-const t = useTranslations('donation')
-t('donateNow') // Verify this key exists in messages/en.json and messages/pt.json
-
-// 2. Add to all locale files:
-// messages/en.json
-{
-  "donation": {
-    "donateNow": "Donate Now"
-  }
-}
-
-// messages/pt.json
-{
-  "donation": {
-    "donateNow": "Doar Agora"
-  }
-}
-```
-
-### 4. Pre-Commit Testing Protocol
-
-Before committing any changes, run this testing sequence:
+## 🚨 CRITICAL: Always Run These Before Saying "Done"
 
 ```bash
-# 1. Type checking
-npx tsc --noEmit
+# 1. Database Setup (if not already done)
+npm run db:setup
 
-# 2. Linting
-npm run lint
+# 2. Run Tests
+npm test
 
-# 3. Start dev server and check for errors
+# 3. Start Dev Server and Check for Errors
 npm run dev
-# Watch for compilation errors
-# Open http://localhost:3000 and check console
+# Open http://localhost:3000 and check browser console
 
-# 4. Build test
-npm run build
-# Ensure build completes without errors
-
-# 5. Test critical user flows:
-# - Navigate to homepage
-# - Click interactive elements
+# 4. Test Critical User Flows Manually
+# - Click "Donate Now" button
 # - Switch languages
-# - Test forms
+# - Submit a form
 ```
 
-### 5. Component Architecture Best Practices
+## Testing Infrastructure
 
-#### Server vs Client Components Decision Tree:
-```
-Does the component have:
-- onClick, onChange, or other event handlers? → Use 'use client'
-- useState, useEffect, or other React hooks? → Use 'use client'
-- Browser-only APIs (window, document)? → Use 'use client'
-- Only static content or server data fetching? → Keep as Server Component
-```
+### Test Stack
+- **Jest** - Unit and integration testing
+- **React Testing Library** - Component testing
+- **Playwright** - E2E testing
+- **MSW** - API mocking
+- **@vercel/postgres** - Uses SQL template literals (tagged templates)
 
-### 6. Error Prevention Strategies
-
-#### Use TypeScript Strictly:
-```tsx
-// Always type props
-interface ComponentProps {
-  locale: string
-  data: SomeType
-}
-
-// Use proper return types
-export function Component({ locale, data }: ComponentProps): JSX.Element {
-  // ...
-}
-```
-
-#### Validate Data Before Use:
-```tsx
-// Check for null/undefined
-if (!data) {
-  return <div>Loading...</div>
-}
-
-// Verify required fields
-if (!t('requiredKey')) {
-  console.error('Missing translation key: requiredKey')
-}
-```
-
-### 7. Testing Commands Reference
+### Running Tests
 
 ```bash
-# Development
-npm run dev              # Start dev server (check for runtime errors)
+# Run all tests
+npm test
 
-# Validation
-npm run lint            # Check code quality
-npx tsc --noEmit       # Type checking
-npm run build          # Production build test
+# Run tests in watch mode (during development)
+npm run test:watch
 
-# Testing specific routes
-curl http://localhost:3000          # Test redirect
-curl http://localhost:3000/en       # Test English route
-curl http://localhost:3000/pt       # Test Portuguese route
-curl http://localhost:3000/admin    # Test admin route
+# Run with coverage
+npm run test:coverage
+
+# Run E2E tests
+npm run test:e2e
+
+# Run specific test file
+npm test -- donations.test.ts
 ```
 
-### 8. Common Pitfalls to Avoid
+### Test File Structure
 
-1. **Never assume a component works without testing**
-   - Always run the dev server after creating components
-   - Test all interactive elements
+```
+__tests__/              # Test files next to source
+├── components/         # Component tests
+├── api/               # API route tests
+├── lib/               # Utility tests
+└── e2e/               # End-to-end tests
 
-2. **Don't skip translation validation**
-   - Check all locale files have matching keys
-   - Test language switching
+tests/                  # Shared test utilities
+├── fixtures/          # Test data
+├── mocks/            # Mock implementations
+└── utils/            # Test helpers
+```
 
-3. **Avoid mixing server and client logic**
-   - Keep data fetching in server components
-   - Keep interactivity in client components
+## Common Issues and Solutions
 
-4. **Don't ignore TypeScript errors**
-   - Fix all type errors before committing
-   - Use proper types, avoid 'any'
+### 1. CSP Blocking Stripe
 
-### 9. Debug Workflow
+**Problem**: Content Security Policy blocks Stripe scripts
+**Solution**: Already fixed in `/lib/security.ts` - includes js.stripe.com
 
-When encountering an error:
+### 2. Database Tables Missing
 
-1. **Read the error message carefully**
-   - Note the file and line number
-   - Understand what type of error it is
+**Problem**: "relation 'donations' does not exist"
+**Solution**: 
+```bash
+npm run db:setup  # Creates all required tables
+```
 
-2. **Check the browser console**
-   - Look for additional error details
-   - Check network tab for failed requests
+### 3. Missing Translation Keys
 
-3. **Review recent changes**
-   - What files were modified?
-   - What new components were added?
+**Problem**: MISSING_MESSAGE errors
+**Solution**: Always check both locale files:
+```bash
+# Check for missing keys
+grep -r "useTranslations\|t(" components/ | grep -oE "t\('[^']+'\)" | sort -u
 
-4. **Test incrementally**
-   - Revert recent changes one by one
-   - Test after each reversion
+# Verify key exists in both files
+cat messages/en.json | jq '.donation'
+cat messages/pt.json | jq '.donation'
+```
 
-5. **Fix and verify**
-   - Apply the fix
-   - Test thoroughly
-   - Check for side effects
+### 4. Client/Server Component Mismatch
 
-### 10. Quality Assurance Checklist
+**Rule**: Any component with event handlers needs 'use client'
+```tsx
+// Quick check for event handlers
+grep -r "onClick\|onChange\|onSubmit" components/ --include="*.tsx"
+```
 
-Before considering any feature complete:
+## Writing Tests - AI Agent Guidelines
 
-- [ ] Dev server runs without errors
-- [ ] No console errors in browser
-- [ ] All interactive elements work
-- [ ] Language switching works
-- [ ] Forms validate and submit correctly
-- [ ] API endpoints return expected data
-- [ ] Build completes successfully
-- [ ] TypeScript has no errors
-- [ ] Linter passes
-- [ ] All routes are accessible
+### Component Test Template
 
-## Summary
+```tsx
+import { render, screen, fireEvent } from '@testing-library/react'
+import { ComponentName } from './ComponentName'
 
-The key to avoiding runtime errors is:
-1. **Always test your changes** by running the dev server
-2. **Check for errors** in both terminal and browser console
-3. **Validate all interactive components** have 'use client' directive
-4. **Ensure all translations** are present in all locale files
-5. **Test user flows** before committing
+// Mock next-intl
+jest.mock('next-intl', () => ({
+  useTranslations: () => (key: string) => key,
+}))
 
-Remember: It's better to catch errors during development than to have them appear at runtime!
+describe('ComponentName', () => {
+  it('should render correctly', () => {
+    render(<ComponentName />)
+    expect(screen.getByText('expected.text')).toBeInTheDocument()
+  })
+
+  it('should handle user interaction', () => {
+    render(<ComponentName />)
+    const button = screen.getByRole('button')
+    fireEvent.click(button)
+    // Assert expected behavior
+  })
+})
+```
+
+### API Route Test Template
+
+```tsx
+import { POST } from './route'
+import { NextRequest } from 'next/server'
+
+// Mock external dependencies
+jest.mock('@/lib/stripe')
+
+describe('API Route', () => {
+  it('should handle valid request', async () => {
+    const request = new NextRequest('http://localhost/api/test', {
+      method: 'POST',
+      body: JSON.stringify({ data: 'test' })
+    })
+    
+    const response = await POST(request)
+    const data = await response.json()
+    
+    expect(response.status).toBe(200)
+    expect(data).toHaveProperty('success')
+  })
+})
+```
+
+## Pre-Deployment Checklist
+
+### Essential Checks
+
+- [ ] **Database Setup**
+  ```bash
+  npm run db:setup
+  ```
+
+- [ ] **Environment Variables**
+  ```bash
+  # Check all required vars are set
+  node -e "require('dotenv').config(); ['POSTGRES_URL', 'STRIPE_SECRET_KEY'].forEach(k => console.log(k, ':', !!process.env[k]))"
+  ```
+
+- [ ] **Run Tests**
+  ```bash
+  npm test
+  ```
+
+- [ ] **Build Successfully**
+  ```bash
+  npm run build
+  ```
+
+- [ ] **No Console Errors**
+  - Start dev server: `npm run dev`
+  - Open browser console
+  - Navigate through all pages
+  - Test all interactions
+
+## Quick Fixes for Common Errors
+
+### Error: "Cannot find module"
+```bash
+npm install
+```
+
+### Error: "Database connection failed"
+```bash
+# Check connection string
+echo $POSTGRES_URL
+# Ensure it's set in .env.local
+```
+
+### Error: "Stripe is not defined"
+```bash
+# Check if Stripe key is set
+echo $NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+# Ensure CSP allows Stripe
+grep "js.stripe.com" lib/security.ts
+```
+
+### Error: "Missing translation"
+```bash
+# Add to both locale files
+echo "Check messages/en.json and messages/pt.json"
+```
+
+## Performance Optimization
+
+### Keep Tests Fast
+
+1. **Use mocks** instead of real API calls
+2. **Parallelize** test execution
+3. **Skip E2E** in watch mode
+4. **Cache** dependencies
+
+### Database Test Optimization
+
+```typescript
+// Use transactions for test isolation
+beforeEach(async () => {
+  await sql`BEGIN`
+})
+
+afterEach(async () => {
+  await sql`ROLLBACK`
+})
+```
+
+### Testing @vercel/postgres SQL Template Literals
+
+**IMPORTANT**: The `sql` function from @vercel/postgres is a tagged template literal that receives:
+1. First argument: Array of template string parts
+2. Subsequent arguments: Interpolated values
+
+```typescript
+// WRONG way to mock (will fail):
+expect(sql).toHaveBeenCalledWith(
+  expect.arrayContaining([
+    expect.stringContaining('INSERT INTO donations')
+  ])
+)
+
+// CORRECT way to mock:
+expect(sql).toHaveBeenCalled()
+const callArgs = sql.mock.calls[0]
+// callArgs[0] is array of template parts
+// callArgs[1], callArgs[2], etc. are interpolated values
+expect(callArgs[0][0]).toContain('INSERT INTO donations')
+expect(callArgs[1]).toBe(100) // First interpolated value
+expect(callArgs[2]).toBe('USD') // Second interpolated value
+```
+
+Example of actual call signature:
+```typescript
+// When you write:
+sql`INSERT INTO donations (amount) VALUES (${100})`
+
+// It's called as:
+sql(['INSERT INTO donations (amount) VALUES (', ')'], 100)
+```
+
+## Debugging Tips
+
+### Enable Verbose Logging
+
+```bash
+# For tests
+DEBUG=* npm test
+
+# For development
+DEBUG=stripe:* npm run dev
+```
+
+### Check Component Rendering
+
+```tsx
+// Add temporary debug output
+console.log('Component rendered with props:', props)
+```
+
+### Verify API Routes
+
+```bash
+# Test API directly
+curl -X POST http://localhost:3000/api/donations/create-checkout \
+  -H "Content-Type: application/json" \
+  -d '{"amount": 100}'
+```
+
+## Required NPM Scripts
+
+```json
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:e2e": "playwright test",
+    "db:setup": "tsx scripts/setup-db.ts",
+    "db:seed": "tsx scripts/seed-donations.ts",
+    "lint": "eslint",
+    "type-check": "tsc --noEmit"
+  }
+}
+```
+
+## Testing Strategy Summary
+
+1. **Unit Tests**: All utilities and helpers
+2. **Integration Tests**: API routes and database operations
+3. **Component Tests**: Critical UI components
+4. **E2E Tests**: Complete user flows
+
+## Red Flags - Stop and Fix
+
+1. ❌ **No tests passing** - Don't proceed
+2. ❌ **Console errors** - Fix immediately
+3. ❌ **Build failures** - Resolve before continuing
+4. ❌ **Missing env vars** - Set up completely
+5. ❌ **Database errors** - Run setup script
+
+## Green Flags - Good to Go
+
+1. ✅ All tests passing
+2. ✅ No console errors
+3. ✅ Build succeeds
+4. ✅ Can complete donation flow
+5. ✅ Language switching works
+6. ✅ Database queries succeed
+
+## Remember
+
+- **Test First**: Write tests before implementation when possible
+- **Test Often**: Run tests after every significant change
+- **Test Everything**: If it can break, it needs a test
+- **Mock External Services**: Don't rely on external APIs in tests
+- **Keep Tests Fast**: Sub-30 second test suite
+- **Document Failures**: When tests fail, document why and how to fix
+
+## Final Verification
+
+Before marking any task complete:
+
+```bash
+# The Ultimate Check
+npm test && npm run build && echo "✅ Ready to ship!"
+```
+
+If this fails, **DO NOT** say the task is complete!

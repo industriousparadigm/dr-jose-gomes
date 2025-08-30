@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 import { Heart } from 'lucide-react'
+import Link from 'next/link'
 
 export function Footer() {
   const t = useTranslations('footer')
@@ -20,12 +21,12 @@ export function Footer() {
           </p>
           
           <div className="flex items-center justify-center gap-8 text-sm">
-            <a href="#" className="hover:text-blue-400 transition-colors">
+            <Link href="/contact" className="hover:text-blue-400 transition-colors">
               {t('contact')}
-            </a>
-            <a href="#" className="hover:text-blue-400 transition-colors">
+            </Link>
+            <Link href="/privacy" className="hover:text-blue-400 transition-colors">
               {t('privacy')}
-            </a>
+            </Link>
           </div>
           
           <div className="mt-8 pt-8 border-t border-gray-800 text-xs text-gray-500">
