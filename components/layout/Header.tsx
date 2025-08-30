@@ -1,3 +1,5 @@
+'use client'
+
 import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 
 interface HeaderProps {

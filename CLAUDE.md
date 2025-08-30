@@ -1,142 +1,235 @@
-# Claude AI Development Context
+# Claude Development Guidelines
 
-## Project: Save Dr. José Gomes - Medical Crowdfunding Platform
+## Critical Testing Practices to Prevent Runtime Errors
 
-### Mission
-Building a crowdfunding platform for Dr. José Gomes de Oliveira's stroke recovery treatment. Target: $25,000 USD. Platform must evoke emotion, build trust, and minimize payment friction.
+### 1. Client Component Validation
 
-### Current Status
-- **Phase**: MVP Development
-- **Approach**: Soft launch with family/friends testing
-- **Timeline**: Core features in ~1 week
+**Issue**: Event handlers cannot be passed to Client Components without 'use client' directive
+**Solution**: Always check components with interactive elements
 
-### Key Technical Decisions
-- **Framework**: Next.js 15 with TypeScript
-- **Database**: Neon Postgres (connection in .env.local)
-- **Hosting**: Vercel (project: dr-jose-gomes)
-- **Repository**: github.com/industriousparadigm/dr-jose-gomes
-- **Styling**: Tailwind CSS
-- **State**: Zustand
-- **Forms**: React Hook Form + Zod
+#### Before implementing any component with event handlers:
+```tsx
+// ❌ WRONG - Will cause runtime error
+export function Header({ locale }: HeaderProps) {
+  return (
+    <button onClick={() => console.log('clicked')}>
+      Click me
+    </button>
+  )
+}
 
-### MVP Features (Must Have)
-1. Dual language (PT/EN) with auto-detection
-2. Multiple payment methods: Stripe, PayPal, PIX, MB Way
-3. Admin panel for transactions and updates
-4. Anonymous donations allowed
-5. Progress counter
-6. Mobile-first design
-7. Basic privacy compliance
+// ✅ CORRECT - Properly marked as client component
+'use client'
 
-### Development Principles
-1. **TDD Approach**: Write tests first, then implement
-2. **Security First**: All secrets in .env.local (gitignored)
-3. **Commit Often**: Test and commit when features work
-4. **Three-Layer Persistence**: Never lose a donation
-5. **Zero Friction**: Minimize fields, allow anonymous
+export function Header({ locale }: HeaderProps) {
+  return (
+    <button onClick={() => console.log('clicked')}>
+      Click me
+    </button>
+  )
+}
+```
 
-### Payment Integration Status
-- **Stripe**: Test mode initially (sandbox)
-- **PayPal**: Sandbox for development
-- **PIX**: Display only initially (Mercado Pago later)
-- **MB Way**: Display only initially
+#### Testing Checklist:
+1. **Scan for event handlers**: Search for `onClick`, `onChange`, `onSubmit`, etc.
+2. **Verify 'use client' directive**: Ensure it's at the top of files with event handlers
+3. **Check component imports**: Verify parent components can handle client components
 
-### Testing Commands
+### 2. Running and Testing the Application
+
+#### Always test the application after making changes:
 ```bash
-npm run dev      # Development server
-npm run test     # Run tests
-npm run build    # Production build
-npm run lint     # Lint code
-npm run type-check # TypeScript check
+# 1. Start the development server
+npm run dev
+
+# 2. Check for compilation errors in the terminal
+# 3. Open browser and verify no console errors
+# 4. Test all interactive elements
 ```
 
-### Git Workflow
+#### Monitor for common errors:
+- Client/Server component mismatches
+- Missing translations
+- Import errors
+- Type mismatches
+
+### 3. Translation Key Validation
+
+**Issue**: Missing translation keys cause runtime errors
+**Solution**: Always verify all translation keys exist
+
+#### When adding new UI text:
+```tsx
+// 1. Check the translation key exists
+const t = useTranslations('donation')
+t('donateNow') // Verify this key exists in messages/en.json and messages/pt.json
+
+// 2. Add to all locale files:
+// messages/en.json
+{
+  "donation": {
+    "donateNow": "Donate Now"
+  }
+}
+
+// messages/pt.json
+{
+  "donation": {
+    "donateNow": "Doar Agora"
+  }
+}
+```
+
+### 4. Pre-Commit Testing Protocol
+
+Before committing any changes, run this testing sequence:
+
 ```bash
-# Feature development
-git add .
-git commit -m "feat: description"
-git push origin main
+# 1. Type checking
+npx tsc --noEmit
 
-# After testing
-git commit -m "test: verify feature works"
+# 2. Linting
+npm run lint
+
+# 3. Start dev server and check for errors
+npm run dev
+# Watch for compilation errors
+# Open http://localhost:3000 and check console
+
+# 4. Build test
+npm run build
+# Ensure build completes without errors
+
+# 5. Test critical user flows:
+# - Navigate to homepage
+# - Click interactive elements
+# - Switch languages
+# - Test forms
 ```
 
-### Environment Variables (.env.local)
-```env
-# Database (Neon Postgres) - Already configured
-DATABASE_URL=...
+### 5. Component Architecture Best Practices
 
-# Payment Processors (Sandbox/Test Mode)
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
-STRIPE_SECRET_KEY=sk_test_...
-STRIPE_WEBHOOK_SECRET=whsec_test_...
-
-PAYPAL_CLIENT_ID=sb-...
-PAYPAL_SECRET=...
-
-# Admin
-ADMIN_PASSWORD=... # For /admin access
-
-# Public Config
-NEXT_PUBLIC_GOAL_AMOUNT=25000
-NEXT_PUBLIC_SITE_URL=https://dr-jose-gomes.vercel.app
+#### Server vs Client Components Decision Tree:
+```
+Does the component have:
+- onClick, onChange, or other event handlers? → Use 'use client'
+- useState, useEffect, or other React hooks? → Use 'use client'
+- Browser-only APIs (window, document)? → Use 'use client'
+- Only static content or server data fetching? → Keep as Server Component
 ```
 
-### Critical Blockers (Need User Input)
-1. Account holder name (Alexandra or specific person)
-2. PIX key type (CPF/Phone/Email)
-3. Wise account confirmation
+### 6. Error Prevention Strategies
 
-### Directory Structure
-```
-/app
-  /[locale]
-    /page.tsx         # Main landing
-    /admin           # Admin panel
-    /api            # API routes
-/components
-  /donation       # Donation flow
-  /ui            # Shared UI
-/lib
-  /db            # Database queries
-  /i18n          # Translations
-  /payments      # Payment processors
-/public
-  /images        # Photos of Dr. José
+#### Use TypeScript Strictly:
+```tsx
+// Always type props
+interface ComponentProps {
+  locale: string
+  data: SomeType
+}
+
+// Use proper return types
+export function Component({ locale, data }: ComponentProps): JSX.Element {
+  // ...
+}
 ```
 
-### Testing Approach
-1. Unit tests for utilities
-2. Integration tests for API routes
-3. E2E tests for donation flow
-4. Manual testing with family (5-10 testers)
+#### Validate Data Before Use:
+```tsx
+// Check for null/undefined
+if (!data) {
+  return <div>Loading...</div>
+}
 
-### Security Checklist
-- [ ] All secrets in .env.local
-- [ ] .env.local in .gitignore
-- [ ] Rate limiting on donations
-- [ ] Input sanitization
-- [ ] HTTPS only on Vercel
-- [ ] SQL injection prevention
-- [ ] XSS protection
+// Verify required fields
+if (!t('requiredKey')) {
+  console.error('Missing translation key: requiredKey')
+}
+```
 
-### Performance Targets
-- Lighthouse score: >90
-- First paint: <1.5s
-- Time to interactive: <3s
-- Mobile-first optimization
+### 7. Testing Commands Reference
 
-### Next Steps Priority
-1. Initialize Next.js project
-2. Set up database schema
-3. Create landing page
-4. Add donation form
-5. Implement payment UI
-6. Build admin panel
-7. Add internationalization
-8. Test with sandbox payments
-9. Soft launch to family
+```bash
+# Development
+npm run dev              # Start dev server (check for runtime errors)
 
----
+# Validation
+npm run lint            # Check code quality
+npx tsc --noEmit       # Type checking
+npm run build          # Production build test
 
-*Remember: This is for a real medical emergency. Every line of code matters. Test thoroughly, commit often, prioritize reliability.*
+# Testing specific routes
+curl http://localhost:3000          # Test redirect
+curl http://localhost:3000/en       # Test English route
+curl http://localhost:3000/pt       # Test Portuguese route
+curl http://localhost:3000/admin    # Test admin route
+```
+
+### 8. Common Pitfalls to Avoid
+
+1. **Never assume a component works without testing**
+   - Always run the dev server after creating components
+   - Test all interactive elements
+
+2. **Don't skip translation validation**
+   - Check all locale files have matching keys
+   - Test language switching
+
+3. **Avoid mixing server and client logic**
+   - Keep data fetching in server components
+   - Keep interactivity in client components
+
+4. **Don't ignore TypeScript errors**
+   - Fix all type errors before committing
+   - Use proper types, avoid 'any'
+
+### 9. Debug Workflow
+
+When encountering an error:
+
+1. **Read the error message carefully**
+   - Note the file and line number
+   - Understand what type of error it is
+
+2. **Check the browser console**
+   - Look for additional error details
+   - Check network tab for failed requests
+
+3. **Review recent changes**
+   - What files were modified?
+   - What new components were added?
+
+4. **Test incrementally**
+   - Revert recent changes one by one
+   - Test after each reversion
+
+5. **Fix and verify**
+   - Apply the fix
+   - Test thoroughly
+   - Check for side effects
+
+### 10. Quality Assurance Checklist
+
+Before considering any feature complete:
+
+- [ ] Dev server runs without errors
+- [ ] No console errors in browser
+- [ ] All interactive elements work
+- [ ] Language switching works
+- [ ] Forms validate and submit correctly
+- [ ] API endpoints return expected data
+- [ ] Build completes successfully
+- [ ] TypeScript has no errors
+- [ ] Linter passes
+- [ ] All routes are accessible
+
+## Summary
+
+The key to avoiding runtime errors is:
+1. **Always test your changes** by running the dev server
+2. **Check for errors** in both terminal and browser console
+3. **Validate all interactive components** have 'use client' directive
+4. **Ensure all translations** are present in all locale files
+5. **Test user flows** before committing
+
+Remember: It's better to catch errors during development than to have them appear at runtime!
