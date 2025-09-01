@@ -6,6 +6,28 @@ import 'whatwg-fetch'
 global.Response = Response
 global.Request = Request
 
+// Mock NextResponse for API route tests
+jest.mock('next/server', () => ({
+  NextResponse: {
+    json: (data, init) => {
+      const response = new Response(JSON.stringify(data), {
+        ...init,
+        headers: {
+          'content-type': 'application/json',
+          ...(init?.headers || {})
+        }
+      })
+      response.status = init?.status || 200
+      return response
+    }
+  },
+  NextRequest: class NextRequest extends Request {
+    constructor(input, init) {
+      super(input, init)
+    }
+  }
+}))
+
 // Only import MSW server if it exists and we need it
 let server
 try {

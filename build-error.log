@@ -1,0 +1,132 @@
+
+> dr-jose-gomes@0.1.0 build
+> next build --turbopack
+
+   ▲ Next.js 15.5.2 (Turbopack)
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Finished writing to disk in 215ms
+ ✓ Compiled successfully in 2.8s
+   Linting and checking validity of types ...
+
+./app/[locale]/thank-you/page.tsx
+60:53  Warning: 'ShareModal' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./app/admin/login/page.tsx
+37:14  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./app/api/donations/create-checkout/__tests__/route.test.ts
+5:10  Warning: 'NextRequest' is defined but never used.  @typescript-eslint/no-unused-vars
+8:80  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+8:92  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+16:8  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+137:11  Warning: 'data' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+288:11  Warning: 'data' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./app/api/donations/recent/__tests__/route.test.ts
+19:8  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./app/api/webhooks/stripe/__tests__/route.test.ts
+5:10  Warning: 'NextRequest' is defined but never used.  @typescript-eslint/no-unused-vars
+9:80  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+9:92  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+17:8  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./app/api/webhooks/stripe/route.ts
+50:48  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./components/admin/AdminDashboard.tsx
+12:3  Warning: 'Filter' is defined but never used.  @typescript-eslint/no-unused-vars
+16:3  Warning: 'Globe' is defined but never used.  @typescript-eslint/no-unused-vars
+42:14  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
+58:14  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./components/analytics/GoogleAnalytics.tsx
+30:51  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+31:16  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+44:51  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+45:16  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+60:51  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+61:16  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./components/certificate/DonationCertificate.tsx
+2:56  Warning: 'Image' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./components/donation/__tests__/DonationForm.test.tsx
+5:26  Warning: 'fireEvent' is defined but never used.  @typescript-eslint/no-unused-vars
+364:13  Warning: 'toast' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./components/donations/DonationFeed.tsx
+26:10  Warning: 'isLoading' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+26:21  Warning: 'setIsLoading' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./components/progress/__tests__/CampaignProgress.test.tsx
+12:35  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./components/share/ShareModal.tsx
+52:14  Warning: 'err' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./lib/__tests__/stripe.test.ts
+4:10  Warning: 'createCheckoutSession' is defined but never used.  @typescript-eslint/no-unused-vars
+4:33  Warning: 'retrieveCheckoutSession' is defined but never used.  @typescript-eslint/no-unused-vars
+25:68  Warning: 'params' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./lib/db/__tests__/donations.test.ts
+15:10  Warning: 'mockDatabase' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./lib/security.ts
+2:15  Warning: 'NextRequest' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./lib/utils/logger.ts
+16:53  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+25:56  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+34:53  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+43:55  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+57:45  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+66:49  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+87:53  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+92:56  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+97:53  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+102:55  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+107:54  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+112:39  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+   Collecting page data ...
+   Generating static pages (0/14) ...
+   Generating static pages (3/14) 
+   Generating static pages (6/14) 
+   Generating static pages (10/14) 
+ ✓ Generating static pages (14/14)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                            Size  First Load JS
+┌ ○ /_not-found                         0 B         115 kB
+├ ƒ /[locale]                       18.3 kB         159 kB
+├ ƒ /[locale]/contact               6.78 kB         148 kB
+├ ƒ /[locale]/privacy               7.22 kB         148 kB
+├ ƒ /[locale]/thank-you             5.92 kB         147 kB
+├ ƒ /admin/dashboard                4.21 kB         129 kB
+├ ○ /admin/login                    5.41 kB         130 kB
+├ ƒ /api/admin/export                   0 B            0 B
+├ ƒ /api/admin/login                    0 B            0 B
+├ ƒ /api/admin/logout                   0 B            0 B
+├ ƒ /api/donations/create-checkout      0 B            0 B
+├ ƒ /api/donations/recent               0 B            0 B
+├ ƒ /api/webhooks/stripe                0 B            0 B
+├ ○ /robots.txt                         0 B            0 B
+└ ○ /sitemap.xml                        0 B            0 B
++ First Load JS shared by all        115 kB
+  ├ chunks/2008ffcf9e5b170c.js        13 kB
+  └ chunks/8082ab48faca5ea1.js      17.2 kB
+  ├ chunks/cfbd2f33f902f4e8.js      58.9 kB
+  └ other shared chunks (total)     25.9 kB
+
+
+ƒ Middleware                          99 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
