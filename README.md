@@ -2,9 +2,19 @@
 
 A multilingual crowdfunding platform built with Next.js 15, TypeScript, and Stripe to support Dr. José Gomes' medical recovery.
 
+## 🚀 Deployment
+
+**Production URL:** https://dr-jose-gomes.vercel.app
+
+**Vercel Project:** `dr-jose-gomes` (Organization: `dsgmcostas-projects`)
+
+- Auto-deploys from GitHub `main` branch
+- Project configured in `vercel.json`
+
 ## 🚀 Features Implemented
 
 ### Core Functionality
+
 - ✅ **Multilingual Support** - Full English and Portuguese translations
 - ✅ **Stripe Payment Integration** - Secure donation processing
 - ✅ **Responsive Design** - Mobile-first approach with Tailwind CSS v4
@@ -13,12 +23,14 @@ A multilingual crowdfunding platform built with Next.js 15, TypeScript, and Stri
 - ✅ **Donation Certificates** - PDF generation for tax records
 
 ### Admin Features
+
 - ✅ **Secure Admin Dashboard** - Protected authentication system
 - ✅ **Donation Management** - View, filter, and export donations
 - ✅ **Campaign Analytics** - Real-time stats and progress monitoring
 - ✅ **CSV Export** - Download donation data for accounting
 
 ### Technical Features
+
 - ✅ **Email Notifications** - Automated confirmation emails via Resend
 - ✅ **Webhook Handling** - Stripe payment verification
 - ✅ **SEO Optimization** - Sitemap, robots.txt, structured data
@@ -137,10 +149,12 @@ npm start
 ## 🔐 Admin Access
 
 Default admin credentials:
+
 - Username: `admin`
 - Password: `admin123`
 
 **Important**: Change these in production by setting:
+
 - `ADMIN_USERNAME` environment variable
 - `ADMIN_PASSWORD_HASH` environment variable (use bcrypt to hash)
 
@@ -166,16 +180,19 @@ npm start
 ## 📝 API Endpoints
 
 ### Public APIs
+
 - `POST /api/donations/create-checkout` - Create Stripe checkout session
 - `GET /api/donations/recent` - Get recent public donations
 - `GET /api/stats` - Get campaign statistics
 
 ### Admin APIs (Protected)
+
 - `POST /api/admin/login` - Admin authentication
 - `POST /api/admin/logout` - Admin logout
 - `GET /api/admin/export` - Export donations CSV
 
 ### Webhooks
+
 - `POST /api/webhooks/stripe` - Stripe payment webhooks
 
 ## 🔒 Security Features
@@ -191,10 +208,12 @@ npm start
 ## 🌍 Internationalization
 
 Supported languages:
+
 - English (`/en`)
 - Portuguese (`/pt`)
 
 Add new languages by:
+
 1. Create `messages/[locale].json`
 2. Update `i18n/routing.ts`
 3. Add locale to middleware
@@ -202,6 +221,7 @@ Add new languages by:
 ## 📊 Analytics Events
 
 Tracked events:
+
 - Donation initiated
 - Donation completed
 - Share button clicks
@@ -229,12 +249,15 @@ npm audit
 ## 🎨 Customization
 
 ### Modify Goal Amount
+
 Update `NEXT_PUBLIC_GOAL_AMOUNT` in environment variables
 
 ### Change Colors
+
 Edit theme in `tailwind.config.ts`
 
 ### Update Content
+
 Edit translation files in `messages/` directory
 
 ## 🐛 Known Issues
